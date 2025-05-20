@@ -31,7 +31,7 @@ namespace ReverseAutoMapperDemo.Controllers
                 .Include(e => e.Address)
                 .ToListAsync();
 
-            var employeeDTOs = _mapper.Map<EmployeeDTO>(employees);
+            var employeeDTOs = _mapper.Map<List<EmployeeDTO>>(employees);
 
             return Ok(employeeDTOs);
 
@@ -44,7 +44,7 @@ namespace ReverseAutoMapperDemo.Controllers
         {
 
             // Find employee by ID and include Address data
-            var employee = _context.Employees
+            var employee = await _context.Employees
                 .AsNoTracking()
                 .Include(e => e.Address)
                 .FirstOrDefaultAsync(e => e.Id == id);
@@ -68,9 +68,9 @@ namespace ReverseAutoMapperDemo.Controllers
                 return BadRequest("Employee data is null.");
 
             //Converting the incoming EmployeeDTO to an Employee entity
-            var employee = _mapper.Map<EmployeeDTO>(employeeDTO);
+            var employee = _mapper.Map<Employee>(employeeDTO);
 
-            _context.Add(employee);
+            _context.Employees.Add(employee);
 
             await _context.SaveChangesAsync();
 

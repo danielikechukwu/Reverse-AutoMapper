@@ -21,7 +21,7 @@ namespace ReverseAutoMapperDemo.MappingProfiles
                 // Enable reverse mapping: this automatically creates the mapping from EmployeeDTO to Employee
                 .ReverseMap()
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => GetFirstName(src.FullName)))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => GetFirstName(src.FullName)));
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => GetLastName(src.FullName)));
         }
 
         // Extracts the first name from FullName.
